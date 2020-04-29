@@ -1,0 +1,1 @@
+{"test_header": "public void test_{}() {{\n", "test_preamble": "@Test\n", "test_postamble": "}\n", "global_postamble": "}\n", "imports":"package DiaMHTestsMaven.DiaMHTests;\nimport static org.junit.Assert.*;\nimport org.junit.Test;\nimport org.junit.BeforeClass;\n\n"}
