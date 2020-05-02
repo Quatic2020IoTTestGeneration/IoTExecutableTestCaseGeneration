@@ -8,14 +8,14 @@ Configuration builder
 The configuration builder generates the wrapper class configuration file using the information contained in annotations of wrapper classes. It is located in the configrationBuilder package.
 It requires four arguments:
 
-	* class path for this project (target/classes)
-	* path of built wrapper classes (target/classes/DiaMHTestsMaven/wrappers)
-	* package name for the wrapper classes (DiaMHTestsMaven.wrappers)
-	* path for wrappers configuration file (../../TestGenerationTool/config/wrappers.json)
+* class path for this project (target/classes)
+* path of built wrapper classes (target/classes/DiaMHTestsMaven/wrappers)
+* package name for the wrapper classes (DiaMHTestsMaven.wrappers)
+* path for wrappers configuration file (../../TestGenerationTool/config/wrappers.json)
 
 Dependencies
 ------
 
-	* **JUnit 4**
-	* **Maven 3.3.9 **
-	* **Java 1.7**
+* **JUnit 4**
+* **Maven 3.3.9**
+* **Java 1.7**
