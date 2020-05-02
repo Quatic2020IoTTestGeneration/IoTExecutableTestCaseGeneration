@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DiaMH Mobile</string>
+    <string name="mqtt_broker">tcp://mqtt.eclipse.org:1883</string>
+    <string name="topic_cmd">diamh/client-id/phone_command</string>
+    <string name="topic_sensor">diamh/client-id/glc_sensor</string>
+    <string name="topic_glucose">diamh/client-id/glucose_lv</string>
+    <string name="topic_ins">diamh/client-id/ins_dose</string>
+    <string name="topic_pump_cmd">diamh/client-id/pump_cmd/insuline</string>
+    <string name="host">192.168.1.198</string>
+
+
+</resources>

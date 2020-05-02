@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml comments="" entryAction="" exitAction="" finalState="false" initialState="false" name="State Machine" parallelState="false" position="0,0" size="200,124" type="machine" uid="{dc3d4fc5-984f-4742-9862-93e5f14050b1}" xmlns="http://www.w3.org/2005/07/scxml">
+    <state comments="" entryAction="" exitAction="" finalState="false" initialState="true" name="init" parallelState="false" position="-492,-396" size="200,124" type="" uid="{e98e8679-54e1-40de-b0b7-ddbd8d24d53e}">
+        <textblock font-bold="true" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="10,10" size="122,42"/>
+        <transition comments="" connectToFinished="false" event="/ pump := InsulinPump(); pump.reset(); cloud := Cloud(); cloud.reset(); app := MobileApp(); sensor := Sensor(); app.shutdownAlarm();" path="M 200 63 L 324 287 " target="Normal" uid="{d476a2cb-1473-47d5-86dd-78859f7673e5}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="-6,-88" size="338,164"/>
+        </transition>
+    </state>
+    <state comments="" entryAction="" exitAction="" finalState="false" initialState="false" name="Normal" parallelState="false" position="-168,-172" size="200,124" type="" uid="{d476a2cb-1473-47d5-86dd-78859f7673e5}">
+        <textblock font-bold="true" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="10,10" size="122,42"/>
+        <transition comments="" connectToFinished="false" event="sensor.sendUnder(cloud.getThreshold()); /  cloud.receiveUnder();" path="M 100 124 L 100 0 " target="Normal" uid="{d476a2cb-1473-47d5-86dd-78859f7673e5}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="-160,-200" size="312,77"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="[cloud.getCriticalCount() &gt;= 4] / app.isRequiringInjection(); app.isNotAlarmed(); app.confirmInjection(); app.insulinIncrement(pump.getErogatedInjections()); pump.inject();  cloud.discardNext(5);  cloud.resetReadings();" path="M 90 124 L 90 239 L 90 265 " target="More insulin" uid="{bc491c67-c41f-4845-b05b-5f677635b164}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="-592,-20" size="464,130"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="sensor.sendOver(cloud.getThreshold()); / cloud.receiveOver();" path="M 179 124 L 179 0 " target="Normal" uid="{d476a2cb-1473-47d5-86dd-78859f7673e5}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="31,-70" size="292,65"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="[cloud.getNumReadings() == cloud.getMaxReadings() AND 0 &lt;= cloud.getCriticalCount() AND cloud.getCriticalCount() &lt; 4] / cloud.resetReadings(); app.isNotRequiringInjection(); app.isNotAlarmed();" path="M 0 119 L 0 0 " target="Normal" uid="{d476a2cb-1473-47d5-86dd-78859f7673e5}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="-654,-158" size="495,108"/>
+        </transition>
+    </state>
+    <state comments="" entryAction="" exitAction="" finalState="false" initialState="false" name="More insulin" parallelState="false" position="-117,93" size="200,124" type="" uid="{bc491c67-c41f-4845-b05b-5f677635b164}">
+        <textblock font-bold="true" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="10,10" size="122,42"/>
+        <transition comments="" connectToFinished="false" event=" [cloud.getNumReadings() == cloud.getMaxReadings() AND 0 &lt;= cloud.getCriticalCount() AND cloud.getCriticalCount() &lt; 4] / app.isNotAlarmed(); app.isNotRequiringInjection(); cloud.resetReadings();" path="M 155 0 L 149 -141 " target="Normal" uid="{d476a2cb-1473-47d5-86dd-78859f7673e5}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="26,-111" size="352,105"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="[cloud.getNumReadings() == cloud.getMaxReadings() AND 4 &lt;= cloud.getCriticalCount() AND cloud.getCriticalCount() &lt;= 15] / app.isRequiringInjection(); app.isNotAlarmed(); app.confirmInjection(); app.insulinIncrement(pump.getErogatedInjections()); pump.inject(); &#10; cloud.discardNext(5); cloud.resetReadings();" path="M 200 121 L 200 0 " target="More insulin" uid="{bc491c67-c41f-4845-b05b-5f677635b164}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="18,-126" size="477,122"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="[cloud.getNumReadings() == cloud.getMaxReadings() AND cloud.getCriticalCount() &gt; 15] / app.isRequiringInjection(); app.isAlarmed(); &#10;   app.confirmInjection(); app.insulinIncrement(pump.getErogatedInjections()); pump.inject(); cloud.discardNext(5); cloud.resetReadings();" path="M 35 124 L -9 201 " target="Problematic" uid="{88af2b09-fcb4-4504-9cdd-3ea07cb5eb86}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="-557,19" size="490,228"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="sensor.sendOver(cloud.getThreshold());  / cloud.receiveOver(); " path="M 100 124 L 100 0 " target="More insulin" uid="{bc491c67-c41f-4845-b05b-5f677635b164}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="402,-223" size="323,94"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="sensor.sendUnder(cloud.getThreshold()); / cloud.receiveUnder();" path="M 151 124 L 151 0 " target="More insulin" uid="{bc491c67-c41f-4845-b05b-5f677635b164}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="519,-76" size="288,84"/>
+        </transition>
+    </state>
+    <state comments="" entryAction="" exitAction="" finalState="false" initialState="false" name="Problematic" parallelState="false" position="-155,294" size="200,124" type="" uid="{88af2b09-fcb4-4504-9cdd-3ea07cb5eb86}">
+        <textblock font-bold="true" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="10,10" size="122,42"/>
+        <transition comments="" connectToFinished="false" event="[cloud.getNumReadings() == cloud.getMaxReadings() AND 4 &lt;= cloud.getCriticalCount() AND cloud.getCriticalCount() &lt;= 15] / app.isRequiringInjection(); app.isNotAlarmed(); app.confirmInjection(); app.insulinIncrement(pump.getErogatedInjections()); pump.inject(); cloud.discardNext(5); cloud.resetReadings();" path="M 177 0 L 221 -77 " target="More insulin" uid="{bc491c67-c41f-4845-b05b-5f677635b164}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="63,-74" size="588,119"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="[cloud.getNumReadings() == cloud.getMaxReadings() AND cloud.getCriticalCount() &gt; 15] / app.isRequiringInjection(); app.isAlarmed();  app.confirmInjection(); app.insulinIncrement(pump.getErogatedInjections()); pump.inject(); cloud.discardNext(5); cloud.resetReadings();" path="M 100 124 L 100 0 " target="Problematic" uid="{88af2b09-fcb4-4504-9cdd-3ea07cb5eb86}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="9,10" size="524,122"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="[cloud.getNumReadings() == cloud.getMaxReadings() AND 0 &lt;= cloud.getCriticalCount() AND cloud.getCriticalCount() &lt; 4 ]/ app.isNotAlarmed(); app.isNotRequiringInjection(); cloud.resetReadings();" path="M 0 28 L 0 -342 " target="Normal" uid="{d476a2cb-1473-47d5-86dd-78859f7673e5}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="-481,-152" size="430,123"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="sensor.sendOver(cloud.getThreshold());  / cloud.receiveOver(); " path="M 154 124 L 154 0 " target="Problematic" uid="{88af2b09-fcb4-4504-9cdd-3ea07cb5eb86}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="86,-55" size="432,72"/>
+        </transition>
+        <transition comments="" connectToFinished="false" event="sensor.sendUnder(cloud.getThreshold()); / cloud.receiveUnder();" path="M 60 124 L 60 0 " target="Problematic" uid="{88af2b09-fcb4-4504-9cdd-3ea07cb5eb86}">
+            <textblock font-bold="false" font-color="rgb(0,0,0)" font-family="arial" font-size="10" font-underline="false" position="-137,28" size="203,140"/>
+        </transition>
+    </state>
+</scxml>
